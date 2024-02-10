@@ -47,6 +47,16 @@ end
 
 registerMenu(dictionaries[1])
 
+
+local function getScale()
+    local screenx, screeny = GetActiveScreenResolution()
+    local textureResVec = GetTextureResolution(currentDictionary, currentTexture)
+    local scale_x = math.min(screenx / textureResVec.x, 1.0)
+    local scale_y = math.min(screeny / textureResVec.y, 1.0)
+
+    return scale_x, scale_y
+end
+
 RegisterCommand('spriteviewer', function()
     currentDictionary = dictionaries[1]
     currentTexture = sprite_textures[currentDictionary][1]
@@ -54,7 +64,8 @@ RegisterCommand('spriteviewer', function()
     lib.showMenu('texture_viewer')
     while currentDictionary and currentTexture do
         Wait(0)
+        local x, y = getScale()
         DrawSprite('commonmenu', 'gradient_bgd', 0.5, 0.5, 1.0, 1.0, 0.0, 255, 255, 255, 255)
-        DrawSprite(currentDictionary, currentTexture, 0.5, 0.5, 0.5, 0.5, 0.0, 255, 255, 255, 255)
+        DrawSprite(currentDictionary, currentTexture, 0.5, 0.5, x / 5, y / 5, 0.0, 255, 255, 255, 255)
     end
 end)
