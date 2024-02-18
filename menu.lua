@@ -61,6 +61,7 @@ RegisterCommand('spriteviewer', function()
     currentDictionary = dictionaries[1]
     currentTexture = sprite_textures[currentDictionary][1]
     lib.requestStreamedTextureDict(currentDictionary)
+    lib.requestStreamedTextureDict('commonmenu')
     lib.showMenu('texture_viewer')
     while currentDictionary and currentTexture do
         Wait(0)
